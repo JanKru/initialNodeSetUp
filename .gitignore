@@ -4,5 +4,8 @@ node_modules/
 #log-files
 .log
 
-# 
+# DS_Store files on mac
 .DS_Store
+
+# .env 
+.env

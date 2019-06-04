@@ -1,9 +1,8 @@
 const winston = require('winston');
-const config = require('./config')
+const config = require('./config');
 
 const {format} = winston;
 const {combine, timestamp, simple, printf, label} = format;
-
 const colorizer = winston.format.colorize();
 let logger = {};
 
@@ -11,8 +10,8 @@ winston.loggers.add('console', {
   level: 'silly',
   format: combine(
       label({label: 'dev'}),
-    timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss'
+      timestamp({
+        format: 'YYYY-MM-DD HH:mm:ss',
       }),
       simple(),
       printf((msg) =>

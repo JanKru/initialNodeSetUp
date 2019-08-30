@@ -26,7 +26,7 @@ cd ./initialNodeSetUp
 ```JS
 NODE_ENV=development
 SERVER_PORT=4041
-MONGO_HOST=mongodb://localhost/mushroomClassifier
+MONGO_HOST=mongodb://localhost/
 
 ```
 4. Install NPM packages

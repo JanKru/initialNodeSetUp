@@ -1,25 +1,31 @@
-const winston = require('winston');
 const config = require('./config');
+const winston = require('winston');
+const moment = require('moment');
 
 const {format} = winston;
 const {combine, timestamp, simple, printf, label} = format;
 const colorizer = winston.format.colorize();
 let logger = {};
 
+const getUTCTime = () => {
+  return moment.utc(new Date).format('DD-MM-YYYY HH:mm:ss');
+};
+
 winston.loggers.add('console', {
   level: 'silly',
   format: combine(
       label({label: 'dev'}),
       timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss',
+        format: getUTCTime,
       }),
-      simple(),
-      printf((msg) =>
-        colorizer.colorize(
-            msg.level,
-            `${msg.timestamp} ${msg.level}: ${msg.message}`
-        )
-      )
+      format.colorize(),
+      format.splat(),
+      format.simple(),
+      printf(({level, message, label, timestamp}) => {
+        return `${timestamp} [${level}]: ${message}`;
+      })
+
+
   ),
   transports: [
     new winston.transports.Console({}),
@@ -31,6 +37,7 @@ winston.loggers.add('file', {
       label({label: 'production'}),
       timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
       simple(),
+      format.colorize(),
       printf(({level, message, label, timestamp}) => {
         return `${timestamp} [${label}] ${level}: ${message}`;
       })

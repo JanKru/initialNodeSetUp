@@ -1,10 +1,8 @@
 const config = require('./config');
 const winston = require('winston');
 const moment = require('moment');
-
 const {format} = winston;
 const {combine, timestamp, simple, printf, label} = format;
-const colorizer = winston.format.colorize();
 let logger = {};
 
 const getUTCTime = () => {
@@ -24,8 +22,6 @@ winston.loggers.add('console', {
       printf(({level, message, label, timestamp}) => {
         return `${timestamp} [${level}]: ${message}`;
       })
-
-
   ),
   transports: [
     new winston.transports.Console({}),

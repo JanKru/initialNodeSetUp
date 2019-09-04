@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-const requestLogStream = fs.createWriteStream(path.join('./', 'production.log'), { flags: 'a' })
+const requestLogStream = fs.createWriteStream(path.join('./', 'production.log'), {flags: 'a'});
 app.use(morgan('combined', {stream: requestLogStream}));
 
 // create a write stream (in append mode)
